@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сушківський ліцей - Офіційний вебпортал</title>
+    <!-- Підключення шрифтів Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#1e40af', // Глибокий синій
+                        secondary: '#facc15', // Жовтий акцент
+                        accent: '#eff6ff' // Світло-блакитний фон
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased selection:bg-primary selection:text-white">
+
+    <!-- Навігація -->
+    <header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Логотип -->
+                <a href="#" onclick="showSection('home')" class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-blue-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-transform">
+                        СЛ
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl text-gray-900 leading-tight group-hover:text-primary transition-colors">Сушківський ліцей</h1>
+                        <p class="text-xs text-gray-500 font-medium tracking-wide uppercase mt-0.5">Знання. Гідність. Майбутнє.</p>
+                    </div>
+                </a>
+                
+                <!-- Меню (для ПК) -->
+                <nav class="hidden lg:flex space-x-1 bg-gray-50/80 px-2 py-1 rounded-full border border-gray-100">
+                    <button onclick="showSection('home')" id="nav-home" class="px-3 py-2 text-sm font-medium text-primary bg-white shadow-sm rounded-full transition-all">Головна</button>
+                    <button onclick="showSection('news')" id="nav-news" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-white rounded-full transition-all">Новини</button>
+                    <button onclick="showSection('schedule')" id="nav-schedule" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-white rounded-full transition-all">Розклад</button>
+                    <button onclick="showSection('alumni')" id="nav-alumni" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-white rounded-full transition-all">Випускники</button>
+                    <button onclick="showSection('team-page')" id="nav-team" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-white rounded-full transition-all">Колектив</button>
+                    <button onclick="showSection('contacts')" id="nav-contacts" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-white rounded-full transition-all">Контакти</button>
+                </nav>
+
+                <!-- Кнопка E-journal та Мобільне меню -->
+                <div class="flex items-center gap-4">
+                    <a href="https://nz.ua/" target="_blank" rel="noopener noreferrer" class="hidden xl:flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-800 hover:-translate-y-0.5 transition-all shadow-lg shadow-blue-900/20">
+                        Е-журнал
+                    </a>
+                    
+                    <!-- Бургер кнопка (мобільні та планшети) -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Мобільне випадаюче меню -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg z-50">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <button onclick="showSection('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-primary bg-blue-50">Головна</button>
+                <button onclick="showSection('news'); toggleMobileMenu();" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">Новини</button>
+                <button onclick="showSection('schedule'); toggleMobileMenu();" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">Розклад занять</button>
+                <button onclick="showSection('alumni'); toggleMobileMenu();" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">Випускники</button>
+                <button onclick="showSection('team-page'); toggleMobileMenu();" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">Колектив</button>
+                <button onclick="showSection('contacts'); toggleMobileMenu();" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50">Контакти</button>
+                <a href="https://nz.ua/" target="_blank" rel="noopener noreferrer" class="block px-3 py-3 mt-4 text-center rounded-md text-base font-medium bg-primary text-white">Електронний журнал</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ГОЛОВНА ВКЛАДКА -->
+    <div id="section-home">
+        <!-- Головний екран (Hero Section) -->
+        <section class="relative bg-gray-900 min-h-[85vh] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 w-full h-full bg-[url('image_1b9da0.jpg')] bg-cover bg-center opacity-40"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/70 to-gray-900/60 backdrop-blur-[1px]"></div>
+            
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center py-20">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium text-sm mb-6 shadow-lg">
+                    <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
+                    Офіційний вебпортал закладу
+                </div>
+                
+                <h2 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-tight tracking-tight drop-shadow-md">
+                    Сушківський <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-yellow-200 to-yellow-400">Ліцей</span>
+                </h2>
+                <p class="text-base sm:text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl leading-relaxed font-light drop-shadow">
+                    Сучасний освітній простір, де традиції успішного навчання поєднуються з інноваціями та турботою про кожного учня.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="showSection('schedule')" class="bg-secondary text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 hover:scale-105 transition-all shadow-[0_0_25px_rgba(250,204,21,0.5)]">
+                        Розклад занять &rarr;
+                    </button>
+                    <button onclick="showSection('alumni')" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg backdrop-blur-md transition-all">
+                        Наші випускники
+                    </button>
+                    <button onclick="showSection('team-page')" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg backdrop-blur-md transition-all">
+                        Педагогічний колектив
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Статистика -->
+        <section class="bg-white py-16 border-b border-gray-100 relative z-10 -mt-6 rounded-t-[3rem] shadow-xl">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+                    <div class="group cursor-default">
+                        <div class="text-4xl md:text-6xl font-black text-primary mb-2">22</div>
+                        <div class="text-gray-500 font-semibold text-sm uppercase tracking-wide">Кваліфікованих педагоги</div>
+                    </div>
+                    <div class="group cursor-default">
+                        <div class="text-4xl md:text-6xl font-black text-primary mb-2">100<span class="text-3xl">%</span></div>
+                        <div class="text-gray-500 font-semibold text-sm uppercase tracking-wide">Мають вищу освіту</div>
+                    </div>
+                    <div class="group cursor-default">
+                        <div class="text-4xl md:text-6xl font-black text-primary mb-2">6</div>
+                        <div class="text-gray-500 font-semibold text-sm uppercase tracking-wide">Вчителів вищої категорії</div>
+                    </div>
+                    <div class="group cursor-default">
+                        <div class="text-4xl md:text-6xl font-black text-primary mb-2">1</div>
+                        <div class="text-gray-500 font-semibold text-sm uppercase tracking-wide">Відмінник освіти України</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Про ліцей -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Про наш ліцей</h2>
+                    <div class="w-24 h-1.5 bg-primary mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Якісна освіта та комфорт</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Сушківський ліцей забезпечує повноцінний освітній процес для учнів різного віку. Наші кабінети обладнані всім необхідним для сучасного навчання, а досвідчені вчителі знаходять індивідуальний підхід до кожного вихованця.
+                        </p>
+                        <ul class="space-y-2 text-gray-700 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-green-500">✅</span> Сучасні методики викладання НУШ</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✅</span> Безпечні умови та сертифіковане укриття</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✅</span> Активне шкільне життя та свята</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-primary to-blue-800 p-8 rounded-3xl text-white shadow-xl transform hover:-translate-y-1 transition-transform">
+                        <h3 class="text-2xl font-bold mb-4">Електронний освітній простір</h3>
+                        <p class="text-blue-100 leading-relaxed mb-6">
+                            Батьки та учні завжди можуть переглянути розклад, оцінки та домашні завдання в режимі реального часу через систему електронних журналів.
+                        </p>
+                        <a href="https://nz.ua/" target="_blank" rel="noopener noreferrer" class="inline-block bg-secondary text-gray-900 px-6 py-3 rounded-xl font-bold hover:bg-yellow-400 transition-all shadow-md">
+                            Перейти до Е-журналу &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ВКЛАДКА НОВИНИ -->
+    <div id="section-news" class="hidden">
+        <section class="bg-primary py-12 text-white text-center relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <button onclick="showSection('home')" class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-semibold border border-white/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Назад</span>
+                </button>
+                <h2 class="text-3xl md:text-5xl font-black mb-2">Новини ліцею</h2>
+                <p class="text-blue-200 max-w-xl mx-auto text-sm md:text-base">Останні події, оголошення та досягнення наших учнів і вчителів.</p>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gray-50 min-h-[60vh]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Новина 1 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all flex flex-col group cursor-pointer">
+                        <div class="h-48 bg-blue-50 flex items-center justify-center text-5xl group-hover:bg-blue-100 transition-colors">📚</div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-xs text-primary font-bold uppercase mb-2">Подія</span>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">Початок нового навчального року</h4>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">Урочистості з нагоди Першого дзвоника об'єднали учнів, вчителів та батьків нашого ліцею. Бажаємо всім успішного та мирного навчального року!</p>
+                            <div class="flex justify-between items-center mt-2 border-t border-gray-50 pt-4">
+                                <span class="text-xs text-gray-400 font-medium">1 вересня 2026</span>
+                                <span class="text-xs text-primary font-bold">Читати &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Новина 2 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all flex flex-col group cursor-pointer">
+                        <div class="h-48 bg-yellow-50 flex items-center justify-center text-5xl group-hover:bg-yellow-100 transition-colors">🏆</div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-xs text-yellow-600 font-bold uppercase mb-2">Досягнення</span>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">Перемоги в олімпіадах</h4>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">Наші учні демонструють чудові результати у предметних олімпіадах районного та обласного рівня. Пишаємося нашими талантами!</p>
+                            <div class="flex justify-between items-center mt-2 border-t border-gray-50 pt-4">
+                                <span class="text-xs text-gray-400 font-medium">15 жовтня 2026</span>
+                                <span class="text-xs text-primary font-bold">Читати &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Новина 3 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all flex flex-col group cursor-pointer">
+                        <div class="h-48 bg-green-50 flex items-center justify-center text-5xl group-hover:bg-green-100 transition-colors">💡</div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-xs text-green-600 font-bold uppercase mb-2">Оголошення</span>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">Оновлення розкладу</h4>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">Увага! Відбулися незначні зміни у розкладі занять для старшої школи. Актуальну інформацію шукайте у вкладці "Розклад" або в Е-журналі.</p>
+                            <div class="flex justify-between items-center mt-2 border-t border-gray-50 pt-4">
+                                <span class="text-xs text-gray-400 font-medium">Графік роботи</span>
+                                <span class="text-xs text-primary font-bold">Читати &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Новина 4 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all flex flex-col group cursor-pointer">
+                        <div class="h-48 bg-purple-50 flex items-center justify-center text-5xl group-hover:bg-purple-100 transition-colors">🎨</div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <span class="text-xs text-purple-600 font-bold uppercase mb-2">Шкільне життя</span>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">Виставка творчих робіт</h4>
+                            <p class="text-gray-600 text-sm mb-4 flex-grow">Запрошуємо батьків та гостей ліцею відвідати щорічну виставку дитячої творчості, що проходить у фоє першого поверху.</p>
+                            <div class="flex justify-between items-center mt-2 border-t border-gray-50 pt-4">
+                                <span class="text-xs text-gray-400 font-medium">20 жовтня 2026</span>
+                                <span class="text-xs text-primary font-bold">Читати &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ВКЛАДКА РОЗКЛАД ЗАНЯТЬ -->
+    <div id="section-schedule" class="hidden">
+        <section class="bg-primary py-12 text-white text-center relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <button onclick="showSection('home')" class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-semibold border border-white/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Назад</span>
+                </button>
+                <h2 class="text-3xl md:text-5xl font-black mb-2">Розклад занять</h2>
+                <p class="text-blue-200 max-w-xl mx-auto text-sm md:text-base">Актуальний розклад уроків для кожного класу Сушківського ліцею.</p>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gray-50 min-h-[60vh]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div id="schedule-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Картки генеруються скриптом -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ВКЛАДКА ВИПУСКНИКИ -->
+    <div id="section-alumni" class="hidden">
+        <section class="bg-primary py-12 text-white text-center relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <button onclick="showSection('home')" class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-semibold border border-white/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Назад</span>
+                </button>
+                <h2 class="text-3xl md:text-5xl font-black mb-2">Галерея випускників</h2>
+                <p class="text-blue-200 max-w-xl mx-auto text-sm md:text-base">Архів випусків Сушківського ліцею від сьогодення до 1980 року.</p>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gray-50 min-h-[60vh]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div id="alumni-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Картки генеруються скриптом -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ВКЛАДКА КОЛЕКТИВ -->
+    <div id="section-team-page" class="hidden">
+        <section class="bg-primary py-12 text-white text-center relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <button onclick="showSection('home')" class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-semibold border border-white/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Назад</span>
+                </button>
+                <h2 class="text-3xl md:text-5xl font-black mb-2">Педагогічний колектив</h2>
+                <p class="text-blue-200 max-w-xl mx-auto text-sm md:text-base">Кваліфіковані викладачі ліцею. Натисніть на картку, щоб дізнатися більше.</p>
+            </div>
+        </section>
+
+        <section class="py-24 bg-accent min-h-[60vh]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Парокінна -->
+                    <div onclick="openTeacherModal('parokinna')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-blue-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-primary opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-primary transition-colors">Парокінна Діана Василівна</h3>
+                            <p class="text-primary font-bold text-xs uppercase tracking-wider mt-2 bg-blue-50 py-1 rounded-full w-max mx-auto px-3">Директор ліцею</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель хімії, алгебри, геометрії</p>
+                        </div>
+                    </div>
+
+                    <!-- Турмій -->
+                    <div onclick="openTeacherModal('turmiy')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-blue-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-primary opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-primary transition-colors">Турмій Ірина Іванівна</h3>
+                            <p class="text-primary font-bold text-xs uppercase tracking-wider mt-2 bg-blue-50 py-1 rounded-full w-max mx-auto px-3">Заступник директора</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель музичного мистецтва</p>
+                        </div>
+                    </div>
+
+                    <!-- Інші вчителі (скорочено для наочності, функціонал працює) -->
+                    <div onclick="openTeacherModal('svyatetsky')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-purple-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-purple-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-colors">Святецький Ігор Олександрович</h3>
+                            <p class="text-purple-600 font-bold text-xs uppercase tracking-wider mt-2 bg-purple-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 5 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель історії</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('chepil')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-purple-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-purple-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-colors">Чепіль Сергій Іванович</h3>
+                            <p class="text-purple-600 font-bold text-xs uppercase tracking-wider mt-2 bg-purple-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 6 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Тренер / Педагог</p>
+                        </div>
+                    </div>
+                    
+                    <div onclick="openTeacherModal('makushchak')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-purple-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-purple-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-colors">Макущак Ліна Олександрівна</h3>
+                            <p class="text-purple-600 font-bold text-xs uppercase tracking-wider mt-2 bg-purple-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 8 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель зарубіжної літератури</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('datsenko_n')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-purple-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-purple-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-colors">Даценко Наталія Олексіївна</h3>
+                            <p class="text-purple-600 font-bold text-xs uppercase tracking-wider mt-2 bg-purple-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 9 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель української мови та літератури</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('hvorostyana')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-green-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-green-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-green-600 transition-colors">Хворостяна Ніна Олексіївна</h3>
+                            <p class="text-green-600 font-bold text-xs uppercase tracking-wider mt-2 bg-green-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 1 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Початкові класи</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('lubchenko')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-green-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-green-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-green-600 transition-colors">Любченко Світлана Петрівна</h3>
+                            <p class="text-green-600 font-bold text-xs uppercase tracking-wider mt-2 bg-green-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 2 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Початкові класи</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('lobodyuk')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-green-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-green-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-green-600 transition-colors">Лободюк Богдан Леонідович</h3>
+                            <p class="text-green-600 font-bold text-xs uppercase tracking-wider mt-2 bg-green-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 4 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Початкові класи</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('yanchuk')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-gray-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-gray-400 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-primary transition-colors">Янчук Віталій Анатолійович</h3>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель фізики та інформатики</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('kratsyk')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-gray-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-gray-400 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-primary transition-colors">Крацик Любов Олексіївна</h3>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель трудового навчання</p>
+                        </div>
+                    </div>
+
+                    <div onclick="openTeacherModal('tokar')" class="bg-white rounded-2xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-blue-50/50 flex flex-col justify-between cursor-pointer group">
+                        <div>
+                            <div class="w-20 h-20 mx-auto rounded-full bg-purple-50 flex items-center justify-center mb-4 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                                <span class="text-3xl text-purple-500 opacity-50">👤</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight group-hover:text-purple-600 transition-colors">Токар Ігор Юрійович</h3>
+                            <p class="text-purple-600 font-bold text-xs uppercase tracking-wider mt-2 bg-purple-50 py-1 rounded-full w-max mx-auto px-3">Класний керівник 11 класу</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs mt-4 pt-3 border-t border-gray-100">Вчитель біології та географії</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ВКЛАДКА КОНТАКТИ (Нова вкладка) -->
+    <div id="section-contacts" class="hidden">
+        <section class="bg-primary py-12 text-white text-center relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <button onclick="showSection('home')" class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full backdrop-blur-md transition-all text-sm font-semibold border border-white/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Назад</span>
+                </button>
+                <h2 class="text-3xl md:text-5xl font-black mb-2">Контакти</h2>
+                <p class="text-blue-200 max-w-xl mx-auto text-sm md:text-base">Зв'яжіться з адміністрацією ліцею для вирішення будь-яких питань.</p>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-50 min-h-[60vh]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Картки адміністрації -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto mb-16">
+                    
+                    <!-- Директор -->
+                    <div class="bg-white p-8 rounded-3xl shadow-md border border-gray-100 hover:shadow-xl transition-shadow text-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
+                        <div class="w-24 h-24 mx-auto rounded-full bg-blue-50 flex items-center justify-center mb-6 border-4 border-white shadow-lg text-4xl text-primary">
+                            <span class="opacity-70">👩‍💼</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-1">Парокінна Діана Василівна</h3>
+                        <p class="text-primary font-bold text-sm uppercase tracking-wider mb-8">Директор ліцею</p>
+                        
+                        <div class="space-y-4 text-left bg-gray-50 p-6 rounded-2xl">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-lg">📞</div>
+                                <div>
+                                    <p class="text-xs text-gray-500 font-semibold uppercase">Телефон</p>
+                                    <p class="text-gray-900 font-medium">[ Місце для номеру телефону ]</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-lg">✉️</div>
+                                <div>
+                                    <p class="text-xs text-gray-500 font-semibold uppercase">Електронна пошта</p>
+                                    <p class="text-gray-900 font-medium break-all">[ Місце для email ]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Заступник -->
+                    <div class="bg-white p-8 rounded-3xl shadow-md border border-gray-100 hover:shadow-xl transition-shadow text-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-yellow-400"></div>
+                        <div class="w-24 h-24 mx-auto rounded-full bg-blue-50 flex items-center justify-center mb-6 border-4 border-white shadow-lg text-4xl text-primary">
+                            <span class="opacity-70">👩‍🏫</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-1">Турмій Ірина Іванівна</h3>
+                        <p class="text-yellow-600 font-bold text-sm uppercase tracking-wider mb-8">Заступник директора</p>
+                        
+                        <div class="space-y-4 text-left bg-gray-50 p-6 rounded-2xl">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-lg">📞</div>
+                                <div>
+                                    <p class="text-xs text-gray-500 font-semibold uppercase">Телефон</p>
+                                    <p class="text-gray-900 font-medium">[ Місце для номеру телефону ]</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-lg">✉️</div>
+                                <div>
+                                    <p class="text-xs text-gray-500 font-semibold uppercase">Електронна пошта</p>
+                                    <p class="text-gray-900 font-medium break-all">[ Місце для email ]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок з адресою -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Як нас знайти?</h3>
+                        <p class="text-gray-600 mb-4">Ліцей розташований у зручному для під'їзду місці.</p>
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">📍</span>
+                            <div>
+                                <p class="text-gray-900 font-medium">[Місце для адреси ліцею]</p>
+                                <p class="text-gray-500 text-sm">Індекс, Область, Місто/Село, Вулиця</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 h-48 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-200">
+                        <div class="text-center">
+                            <span class="text-4xl block mb-2">🗺️</span>
+                            <p class="text-sm font-medium px-4">Місце для вбудованої Google Карти</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Модальне вікно (Біографія Вчителя) -->
+    <div id="teacher-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <!-- Затемнення фону -->
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onclick="closeTeacherModal()"></div>
+        <!-- Само вікно -->
+        <div class="relative bg-white rounded-3xl w-full max-w-md mx-4 p-8 shadow-2xl transform transition-all z-10 text-center">
+            <!-- Кнопка закрити -->
+            <button onclick="closeTeacherModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <div id="modal-icon"></div>
+            <h3 id="modal-name" class="text-2xl font-bold text-gray-900 mb-1"></h3>
+            <div id="modal-role" class="mb-4"></div>
+            <p id="modal-subjects" class="text-sm font-semibold text-gray-600 mb-6 pb-4 border-b border-gray-100"></p>
+            <p id="modal-bio" class="text-gray-600 leading-relaxed text-sm text-left"></p>
+            
+            <button onclick="closeTeacherModal()" class="mt-8 w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition-colors">Закрити</button>
+        </div>
+    </div>
+
+    <!-- Підвал -->
+    <footer class="bg-gray-950 text-white pt-12 pb-8 border-t-4 border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+            <p>&copy; 2026 Сушківський ліцей. Всі права захищено.</p>
+        </div>
+    </footer>
+
+    <!-- Скрипти -->
+    <script>
+        // --- 1. Навігація по вкладках ---
+        function showSection(sectionId) {
+            // Масиви всіх секцій та їхніх кнопок у меню
+            const sections = ['section-home', 'section-schedule', 'section-alumni', 'section-team-page', 'section-news', 'section-contacts'];
+            const navIds = ['nav-home', 'nav-schedule', 'nav-alumni', 'nav-team', 'nav-news', 'nav-contacts'];
+
+            // Скидаємо стилі і ховаємо всі секції
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.add('hidden');
+            });
+            
+            navIds.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.className = "px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-white rounded-full transition-all";
+            });
+
+            // Показуємо вибрану секцію та робимо кнопку "активною"
+            const activeSection = document.getElementById(`section-${sectionId === 'team' ? 'team-page' : sectionId}`);
+            if(activeSection) activeSection.classList.remove('hidden');
+
+            const activeNav = document.getElementById(`nav-${sectionId}`);
+            if(activeNav) activeNav.className = "px-3 py-2 text-sm font-medium text-primary bg-white shadow-sm rounded-full transition-all";
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Мобільне меню
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        if(btn) {
+            btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+        }
+
+        function toggleMobileMenu() {
+            if(menu) menu.classList.add('hidden');
+        }
+
+        // --- 2. Генерація розкладу та випускників ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // Розклад
+            const scheduleContainer = document.getElementById('schedule-container');
+            let scheduleHtml = '';
+            for (let i = 1; i <= 11; i++) {
+                scheduleHtml += `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group flex flex-col">
+                    <div class="bg-primary/5 px-4 py-3 text-center border-b border-gray-100 flex justify-between items-center">
+                        <span class="font-bold text-gray-900 text-lg">${i} клас</span>
+                        <span class="text-xs font-semibold text-primary bg-white px-2 py-1 rounded-md border border-blue-100 shadow-sm">📖</span>
+                    </div>
+                    <div class="relative w-full h-56 bg-gray-100 flex flex-col items-center justify-center overflow-hidden group-hover:bg-gray-200 transition-colors cursor-pointer">
+                        <span class="text-4xl text-gray-300 mb-2 group-hover:scale-110 transition-transform duration-300">📅</span>
+                        <p class="text-xs text-gray-400 font-medium text-center px-4">Фотографія розкладу<br>для ${i} класу</p>
+                    </div>
+                </div>
+                `;
+            }
+            if (scheduleContainer) scheduleContainer.innerHTML = scheduleHtml;
+
+            // Випускники
+            const alumniContainer = document.getElementById('alumni-container');
+            let alumniHtml = '';
+            for (let year = 2026; year >= 1980; year--) {
+                alumniHtml += `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group flex flex-col">
+                    <div class="bg-primary/5 px-4 py-3 text-center border-b border-gray-100 flex justify-between items-center">
+                        <span class="font-bold text-gray-900 text-lg">Випуск ${year}</span>
+                        <span class="text-xs font-semibold text-primary bg-white px-2 py-1 rounded-md border border-blue-100 shadow-sm">🎓</span>
+                    </div>
+                    <div class="relative w-full h-48 bg-gray-100 flex flex-col items-center justify-center overflow-hidden group-hover:bg-gray-200 transition-colors cursor-pointer">
+                        <span class="text-4xl text-gray-300 mb-2 group-hover:scale-110 transition-transform duration-300">📸</span>
+                        <p class="text-xs text-gray-400 font-medium text-center px-4">Місце для фотографії<br>випускників ${year} року</p>
+                    </div>
+                </div>
+                `;
+            }
+            if (alumniContainer) alumniContainer.innerHTML = alumniHtml;
+        });
+
+        // --- 3. Інтерактивні модальні вікна (Біографії) ---
+        const teachersData = {
+            'parokinna': {
+                name: 'Парокінна Діана Василівна',
+                role: 'Директор ліцею',
+                subjects: 'Вчитель хімії, алгебри, геометрії',
+                color: 'bg-blue-50 text-primary',
+                bio: 'Досвідчений керівник та талановитий педагог. Має вищу кваліфікаційну категорію. Завжди підтримує інновації в освітньому процесі та створює комфортні умови для розвитку як учнів, так і педагогічного колективу.'
+            },
+            'turmiy': {
+                name: 'Турмій Ірина Іванівна',
+                role: 'Заступник директора',
+                subjects: 'Вчитель музичного мистецтва',
+                color: 'bg-blue-50 text-primary',
+                bio: 'Організовує навчально-виховний процес ліцею на найвищому рівні. Натхненний вчитель музики, який розкриває творчий потенціал кожної дитини та прищеплює глибоку любов до мистецтва.'
+            },
+            'svyatetsky': {
+                name: 'Святецький Ігор Олександрович',
+                role: 'Класний керівник 5 класу',
+                subjects: 'Вчитель історії',
+                color: 'bg-purple-50 text-purple-600',
+                bio: 'Педагог, який вміє захопити своїм предметом. Допомагає учням зрозуміти складні історичні процеси, формує патріотичну свідомість. Відповідальний та уважний класний керівник для п\'ятикласників.'
+            },
+            'chepil': {
+                name: 'Чепіль Сергій Іванович',
+                role: 'Класний керівник 6 класу',
+                subjects: 'Тренер / Педагог',
+                color: 'bg-purple-50 text-purple-600',
+                bio: 'Справжній наставник для молоді. Активно залучає школярів до спортивних та виховних заходів, дбає про їхнє фізичне здоров\'я. Формує дружній та згуртований колектив у своєму класі.'
+            },
+            'makushchak': {
+                name: 'Макущак Ліна Олександрівна',
+                role: 'Класний керівник 8 класу',
+                subjects: 'Вчитель зарубіжної літератури',
+                color: 'bg-purple-50 text-purple-600',
+                bio: 'Відкриває для учнів безмежний світ світової літератури. Її уроки — це завжди цікаві дискусії, глибокий аналіз творів та пошук істини. Дбайливо ставиться до кожного учня свого класу.'
+            },
+            'datsenko_n': {
+                name: 'Даценко Наталія Олексіївна',
+                role: 'Класний керівник 9 класу',
+                subjects: 'Вчитель української мови та літератури',
+                color: 'bg-purple-50 text-purple-600',
+                bio: 'Плекає любов та повагу до рідного слова. Якісно готує учнів до конкурсів, олімпіад та успішного складання державних іспитів. Завжди підтримує своїх вихованців у складні моменти.'
+            },
+            'hvorostyana': {
+                name: 'Хворостяна Ніна Олексіївна',
+                role: 'Класний керівник 1 класу',
+                subjects: 'Початкові класи',
+                color: 'bg-green-50 text-green-600',
+                bio: 'Перший вчитель, який з величезною турботою та невичерпним терпінням вводить малюків у світ знань. Створює теплу, безпечну та по-справжньому родинну атмосферу в класі.'
+            },
+            'lubchenko': {
+                name: 'Любченко Світлана Петрівна',
+                role: 'Класний керівник 2 класу',
+                subjects: 'Початкові класи',
+                color: 'bg-green-50 text-green-600',
+                bio: 'Досвідчений педагог початкової школи. У своїй роботі активно використовує сучасні методики НУШ, щоб навчання було захопливим, пізнавальним та ефективним для кожної дитини.'
+            },
+            'lobodyuk': {
+                name: 'Лободюк Богдан Леонідович',
+                role: 'Класний керівник 4 класу',
+                subjects: 'Початкові класи',
+                color: 'bg-green-50 text-green-600',
+                bio: 'Енергійний, сучасний та креативний вчитель. Допомагає молодшим школярам успішно завершити етап початкової школи та впевнено підготуватися до переходу в старші класи.'
+            },
+            'yanchuk': {
+                name: 'Янчук Віталій Анатолійович',
+                role: 'Вчитель фізики та інформатики',
+                subjects: 'Вчитель-предметник',
+                color: 'bg-gray-50 text-gray-700',
+                bio: 'Вчитель, який йде в ногу з цифровим часом. Навчає учнів основам програмування, цифровій грамотності та захоплює складними законами фізики через зрозумілі практичні досліди.'
+            },
+            'kratsyk': {
+                name: 'Крацик Любов Олексіївна',
+                role: 'Вчитель трудового навчання',
+                subjects: 'Вчитель-предметник',
+                color: 'bg-gray-50 text-gray-700',
+                bio: 'Розвиває творчі здібності та корисні практичні навички в учнів. Її уроки вчать працьовитості, креативності, самостійності та формують вишуканий естетичний смак.'
+            },
+            'tokar': {
+                name: 'Токар Ігор Юрійович',
+                role: 'Класний керівник 11 класу',
+                subjects: 'Вчитель біології та географії',
+                color: 'bg-purple-50 text-purple-600',
+                bio: 'Закоханий у природу викладач. Разом з учнями цікаво досліджує флору, фауну та географію нашого світу. Мудрий, розуміючий та надійний наставник для майбутніх випускників ліцею.'
+            }
+        };
+
+        function openTeacherModal(id) {
+            const teacher = teachersData[id];
+            if(!teacher) return;
+            
+            // Налаштування кольорів та іконки
+            const iconDiv = document.getElementById('modal-icon');
+            iconDiv.className = `w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-4 border-4 border-white shadow-lg text-4xl ${teacher.color}`;
+            iconDiv.innerHTML = '<span class="opacity-50">👤</span>';
+            
+            // Наповнення текстом
+            document.getElementById('modal-name').innerText = teacher.name;
+            
+            const roleEl = document.getElementById('modal-role');
+            roleEl.innerText = teacher.role;
+            roleEl.className = `font-bold text-[10px] sm:text-xs uppercase tracking-wider py-1.5 px-4 rounded-full w-max mx-auto mb-4 ${teacher.color}`;
+            
+            document.getElementById('modal-subjects').innerText = teacher.subjects;
+            document.getElementById('modal-bio').innerText = teacher.bio;
+            
+            // Відкриття модалки
+            const modal = document.getElementById('teacher-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function closeTeacherModal() {
+            const modal = document.getElementById('teacher-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
